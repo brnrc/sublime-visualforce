@@ -1,0 +1,7 @@
+<apex:actionfunction class="test()" olhota="" />
+<apex:pageBlock title="Debug">
+    <apex:pageBlockSection title="ActionStatus" collapsible="false">
+        Status1: <apex:actionstatus id="selectionStatus" startText="(starting...)" stopText="(done!)"/>
+        Status2: <apex:actionstatus id="removeStatus" startText="(starting...)" stopText="(done!)"/>
+    </apex:pageBlockSection>
+</apex:pageBlock>

@@ -1,0 +1,40 @@
+// [PackageDev] target_format: plist, ext: tmLanguage
+{
+    "name": "Visualforce",
+    "scopeName": "source.Visualforce", 
+    "fileTypes": [
+        "page", 
+        "html"
+    ], 
+    "uuid": "4ca6a18d-a67f-4216-b60c-796faa08afe8", 
+    "repository": {
+        "apex-inline": {
+            "patterns": [
+                {
+                    "comment": "inline apex tags <apex:actionfunction ... />",
+                    "name": "inline.apex.entity.tag.page", 
+                    "begin": "<(apex:\\w+\\s)",
+                    "beginCaptures": {
+                        "1": {"name": "entity.name.tag.page"}
+                    },
+                    "patterns": [
+                        { "include": "$self" },
+                        {  "name": "apex.body.page",
+                           "match": "(\\w+)(=)",
+                           "captures": {
+                               "1": { "name": "entity.other.attribute-name.page" }
+                           }
+                        }
+                    ],
+                    "end": "(/>)",
+                    "endCaptures": {
+                        // "1": { "name": "entity.name.tag.page" }
+                    }
+                } 
+            ]        
+        }
+    },
+    "patterns": [
+        { "include": "#apex-inline" }   
+    ]
+}

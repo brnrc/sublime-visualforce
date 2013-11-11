@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>page</string>
+		<string>html</string>
+	</array>
+	<key>name</key>
+	<string>Visualforce</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>include</key>
+			<string>#apex-inline</string>
+		</dict>
+	</array>
+	<key>repository</key>
+	<dict>
+		<key>apex-inline</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>&lt;(apex:\w+\s)</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.tag.page</string>
+						</dict>
+					</dict>
+					<key>comment</key>
+					<string>inline apex tags &lt;apex:actionfunction ... /&gt;</string>
+					<key>end</key>
+					<string>(/&gt;)</string>
+					<key>endCaptures</key>
+					<dict>
+					</dict>
+					<key>name</key>
+					<string>inline.apex.entity.tag.page</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>$self</string>
+						</dict>
+						<dict>
+							<key>captures</key>
+							<dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>entity.other.attribute-name.page</string>
+								</dict>
+							</dict>
+							<key>match</key>
+							<string>(\w+)(=)</string>
+							<key>name</key>
+							<string>apex.body.page</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+	</dict>
+	<key>scopeName</key>
+	<string>source.Visualforce</string>
+	<key>uuid</key>
+	<string>4ca6a18d-a67f-4216-b60c-796faa08afe8</string>
+</dict>
+</plist>
