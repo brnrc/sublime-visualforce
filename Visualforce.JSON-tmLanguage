@@ -1,40 +1,110 @@
 // [PackageDev] target_format: plist, ext: tmLanguage
 {
     "name": "Visualforce",
-    "scopeName": "source.Visualforce", 
+    "scopeName": "text.html.visualforce", 
     "fileTypes": [
         "page", 
         "html"
     ], 
     "uuid": "4ca6a18d-a67f-4216-b60c-796faa08afe8", 
     "repository": {
+        "attributes": {
+            "patterns": [
+                {  "name": "apex.body.page",
+                   "match": "(\\w+=)",
+                   "captures": {
+                       "1": { "name": "entity.other.attribute-name.page" }
+                   }
+                }
+            ]
+        },
         "apex-inline": {
             "patterns": [
                 {
-                    "comment": "inline apex tags <apex:actionfunction ... />",
+                    "comment": "Inline apex tags <apex:actionfunction ... />",
                     "name": "inline.apex.entity.tag.page", 
-                    "begin": "<(apex:\\w+\\s)",
+                    "begin": "(<)(apex:\\w+\\s)(?=[^>]*/>)",
                     "beginCaptures": {
-                        "1": {"name": "entity.name.tag.page"}
+                        "1": { "name": "punctuation.definition.tag.page" },
+                        "2": { "name": "entity.name.tag.page"}
+                    },
+                    "patterns": [
+                        { "include": "#attributes" },
+                        { "include": "#embedded-apex" }
+                    ],
+                    "end": "(/>)"
+                } 
+            ]        
+        },
+        "apex-block": {
+            "patterns": [
+                {
+                    "comment": "Block apex tags <apex:pageBlock> ... </apex:pageBlock>",
+                    "name": "block.apex.page",
+                    "begin": "(?:^\\s+)?(<)(apex:\\w+\\s)(?=[^/>]*>)", 
+                    "end": "(</)(apex:\\w+)(>)", 
+                    "captures": {
+                        "2": { "name": "entity.name.tag.page" }
                     },
                     "patterns": [
                         { "include": "$self" },
-                        {  "name": "apex.body.page",
-                           "match": "(\\w+)(=)",
-                           "captures": {
-                               "1": { "name": "entity.other.attribute-name.page" }
-                           }
-                        }
-                    ],
-                    "end": "(/>)",
+                        { "include": "#apex-inline" },
+                        { "include": "#attributes" },
+                        { "include": "#embedded-apex" },
+                        { "include": "text.html.basic" }
+                    ]
+                }
+            ]
+        },
+        "embedded-apex": {
+            "patterns": [
+                {
+                    "comment": "{! ... }",
+                    "name": "embedded.apex.entity.tag.page",
+                    "begin": "(\\{!)(?=.*\\})",
+                    "beginCaptures": {
+                        "1": { "name": "support.constant.page" }
+                    },
+                    "end": "(})", 
                     "endCaptures": {
-                        // "1": { "name": "entity.name.tag.page" }
-                    }
-                } 
-            ]        
+                        "1": { "name": "support.constant.page" }
+                    },
+                    "patterns": [
+                        { "include": "#embedded-global-variables" },
+                        { "include": "#embedded-global-function" }
+                    ]
+                }
+            ]
+        },
+        "embedded-global-variables":{
+            "patterns": [
+                {  "name": "variable.parameter",
+                   "comment": "$Resource, $Component",
+                   "match": "(\\$\\w+)([\\.\\w+]+)"
+                }
+            ]
+        },
+        "embedded-global-function":{
+            "patterns": [
+                {  
+                   "comment": "embedded Resources",
+                   "begin": "([A-Z]+\\()(?=.*\\))",
+                   "end": "(\\))",
+                   "beginCaptures": {
+                       "1": { "name": "support.constant" }
+                   },
+                   "endCaptures": {
+                       "1": { "name": "support.constant" }
+                   },
+                   "patterns": [
+                        { "include": "#embedded-global-variables" }
+                   ]
+                }
+            ]
         }
     },
     "patterns": [
-        { "include": "#apex-inline" }   
+        { "include": "#apex-inline" },
+        { "include": "#apex-block" }
     ]
 }

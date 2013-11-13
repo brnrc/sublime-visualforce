@@ -15,33 +15,34 @@
 			<key>include</key>
 			<string>#apex-inline</string>
 		</dict>
+		<dict>
+			<key>include</key>
+			<string>#apex-block</string>
+		</dict>
 	</array>
 	<key>repository</key>
 	<dict>
-		<key>apex-inline</key>
+		<key>apex-block</key>
 		<dict>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>begin</key>
-					<string>&lt;(apex:\w+\s)</string>
-					<key>beginCaptures</key>
+					<string>(?:^\s+)?(&lt;)(apex:\w+\s)(?=[^/&gt;]*&gt;)</string>
+					<key>captures</key>
 					<dict>
-						<key>1</key>
+						<key>2</key>
 						<dict>
 							<key>name</key>
 							<string>entity.name.tag.page</string>
 						</dict>
 					</dict>
 					<key>comment</key>
-					<string>inline apex tags &lt;apex:actionfunction ... /&gt;</string>
+					<string>Block apex tags &lt;apex:pageBlock&gt; ... &lt;/apex:pageBlock&gt;</string>
 					<key>end</key>
-					<string>(/&gt;)</string>
-					<key>endCaptures</key>
-					<dict>
-					</dict>
+					<string>(&lt;/)(apex:\w+)(&gt;)</string>
 					<key>name</key>
-					<string>inline.apex.entity.tag.page</string>
+					<string>block.apex.page</string>
 					<key>patterns</key>
 					<array>
 						<dict>
@@ -49,26 +50,182 @@
 							<string>$self</string>
 						</dict>
 						<dict>
-							<key>captures</key>
-							<dict>
-								<key>1</key>
-								<dict>
-									<key>name</key>
-									<string>entity.other.attribute-name.page</string>
-								</dict>
-							</dict>
-							<key>match</key>
-							<string>(\w+)(=)</string>
-							<key>name</key>
-							<string>apex.body.page</string>
+							<key>include</key>
+							<string>#apex-inline</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#attributes</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#embedded-apex</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>text.html.basic</string>
 						</dict>
 					</array>
 				</dict>
 			</array>
 		</dict>
+		<key>apex-inline</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>(&lt;)(apex:\w+\s)(?=[^&gt;]*/&gt;)</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.tag.page</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.tag.page</string>
+						</dict>
+					</dict>
+					<key>comment</key>
+					<string>Inline apex tags &lt;apex:actionfunction ... /&gt;</string>
+					<key>end</key>
+					<string>(/&gt;)</string>
+					<key>name</key>
+					<string>inline.apex.entity.tag.page</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#attributes</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#embedded-apex</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>attributes</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>entity.other.attribute-name.page</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>(\w+=)</string>
+					<key>name</key>
+					<string>apex.body.page</string>
+				</dict>
+			</array>
+		</dict>
+		<key>embedded-apex</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>(\{!)(?=.*\})</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>support.constant.page</string>
+						</dict>
+					</dict>
+					<key>comment</key>
+					<string>{! ... }</string>
+					<key>end</key>
+					<string>(})</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>support.constant.page</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>embedded.apex.entity.tag.page</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#embedded-global-variables</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#embedded-global-function</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>embedded-global-function</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>([A-Z]+\()(?=.*\))</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>support.constant</string>
+						</dict>
+					</dict>
+					<key>comment</key>
+					<string>embedded Resources</string>
+					<key>end</key>
+					<string>(\))</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>support.constant</string>
+						</dict>
+					</dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#embedded-global-variables</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>embedded-global-variables</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>comment</key>
+					<string>$Resource, $Component</string>
+					<key>match</key>
+					<string>(\$\w+)([\.\w+]+)</string>
+					<key>name</key>
+					<string>variable.parameter</string>
+				</dict>
+			</array>
+		</dict>
 	</dict>
 	<key>scopeName</key>
-	<string>source.Visualforce</string>
+	<string>text.html.visualforce</string>
 	<key>uuid</key>
 	<string>4ca6a18d-a67f-4216-b60c-796faa08afe8</string>
 </dict>
