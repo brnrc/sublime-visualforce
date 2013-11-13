@@ -1,15 +1,15 @@
-<apex:page standardController="Account" extensions="AccountsController2" docType="html-5.0">
+<apex:page standardController="Account" extensions="AccountsController2" docType="{!AASDAS($Resource.ook, printContrller)}">
     <apex:actionfunction class="test()" id="{!AASDAS()}" />
 
+    <apex:actionFunction  id="lols({!JS(inasdl)})"/>
     <apex:pageBlock title="Debug">
-        <apex:pageBlockSection title="ActionStatus" collapsible="false">
+        <apex:pageBlockSection title="ActionStatus" collapsible="{!AASDAS()}" >
             Status1: <apex:actionstatus id="selectionStatus" startText="(starting...)" stopText="{!$Component.userLongitude}"/>
             Status2: <apex:actionstatus id="removeStatus" startText="(starting...)" stopText="(done!)"/>
         </apex:pageBlockSection>
-        <apex:actionFunction  id="{!JSENCODE($Resource.olhota.ok)}"/>
     </apex:pageBlock>
     <div>
-        <div>{!JSINHTML()}
+        <div>{!JSINHTML(olhotanews)}
             <div>
                 <a href="" title=""></a>    
                 <img src="" alt=""> 

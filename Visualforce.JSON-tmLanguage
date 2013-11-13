@@ -60,26 +60,27 @@
             "patterns": [
                 {
                     "comment": "{! ... }",
-                    "name": "embedded.apex.entity.tag.page",
+                    "name": "embedded.apex",
                     "begin": "(\\{!)(?=.*\\})",
                     "beginCaptures": {
-                        "1": { "name": "support.constant.page" }
+                        "1": { "name": "constant.numeric.page" }
                     },
                     "end": "(})", 
                     "endCaptures": {
-                        "1": { "name": "support.constant.page" }
+                        "1": { "name": "constant.numeric.page" }
                     },
                     "patterns": [
                         { "include": "#embedded-global-variables" },
-                        { "include": "#embedded-global-function" }
+                        { "include": "#embedded-global-function" },
+                        { "include": "#embedded-controller-function" }
                     ]
                 }
             ]
         },
         "embedded-global-variables":{
             "patterns": [
-                {  "name": "variable.parameter",
-                   "comment": "$Resource, $Component",
+                {  "comment": "$Resource, $Component",
+                   "name": "variable.parameter",
                    "match": "(\\$\\w+)([\\.\\w+]+)"
                 }
             ]
@@ -87,7 +88,7 @@
         "embedded-global-function":{
             "patterns": [
                 {  
-                   "comment": "embedded Resources",
+                   "comment": "Functions",
                    "begin": "([A-Z]+\\()(?=.*\\))",
                    "end": "(\\))",
                    "beginCaptures": {
@@ -99,6 +100,18 @@
                    "patterns": [
                         { "include": "#embedded-global-variables" }
                    ]
+                }
+            ]
+        },
+        "embedded-controller-function":{
+            "patterns": [
+                {  
+                   "comment": "Controller methods",
+                   "name": "apex.controller",
+                   "match": "(\\w+)([\\.\\w+]+)?",
+                   "captures": {
+                       "1": { "name": "variable.parameter.page" }
+                   }
                 }
             ]
         }
