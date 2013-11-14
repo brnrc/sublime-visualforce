@@ -41,7 +41,7 @@
                 {
                     "comment": "Block apex tags <apex:pageBlock> ... </apex:pageBlock>",
                     "name": "block.apex.page",
-                    "begin": "(?:^\\s+)?(<)(apex:\\w+\\s)(?=[^/>]*>)", 
+                    "begin": "(?:^\\s+)?(<)(apex:\\w+\\s*)(?=[^/>]*>)", 
                     "end": "(</)(apex:\\w+)(>)", 
                     "captures": {
                         "2": { "name": "entity.name.tag.page" }

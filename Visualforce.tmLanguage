@@ -28,7 +28,7 @@
 			<array>
 				<dict>
 					<key>begin</key>
-					<string>(?:^\s+)?(&lt;)(apex:\w+\s)(?=[^/&gt;]*&gt;)</string>
+					<string>(?:^\s+)?(&lt;)(apex:\w+\s*)(?=[^/&gt;]*&gt;)</string>
 					<key>captures</key>
 					<dict>
 						<key>2</key>
