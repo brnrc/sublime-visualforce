@@ -141,7 +141,7 @@
 						<key>1</key>
 						<dict>
 							<key>name</key>
-							<string>support.constant.page</string>
+							<string>constant.numeric.page</string>
 						</dict>
 					</dict>
 					<key>comment</key>
@@ -153,11 +153,11 @@
 						<key>1</key>
 						<dict>
 							<key>name</key>
-							<string>support.constant.page</string>
+							<string>constant.numeric.page</string>
 						</dict>
 					</dict>
 					<key>name</key>
-					<string>embedded.apex.entity.tag.page</string>
+					<string>embedded.apex</string>
 					<key>patterns</key>
 					<array>
 						<dict>
@@ -168,7 +168,33 @@
 							<key>include</key>
 							<string>#embedded-global-function</string>
 						</dict>
+						<dict>
+							<key>include</key>
+							<string>#embedded-controller-function</string>
+						</dict>
 					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>embedded-controller-function</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>variable.parameter.page</string>
+						</dict>
+					</dict>
+					<key>comment</key>
+					<string>Controller methods</string>
+					<key>match</key>
+					<string>(\w+)([\.\w+]+)?</string>
+					<key>name</key>
+					<string>apex.controller</string>
 				</dict>
 			</array>
 		</dict>
@@ -188,7 +214,7 @@
 						</dict>
 					</dict>
 					<key>comment</key>
-					<string>embedded Resources</string>
+					<string>Functions</string>
 					<key>end</key>
 					<string>(\))</string>
 					<key>endCaptures</key>
