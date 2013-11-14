@@ -110,7 +110,7 @@
                    "name": "apex.controller",
                    "match": "(\\w+)([\\.\\w+]+)?",
                    "captures": {
-                       "1": { "name": "variable.parameter.page" }
+                       "0": { "name": "variable.parameter.page" }
                    }
                 }
             ]
