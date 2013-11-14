@@ -4,7 +4,7 @@ sublime-visualforce
 Visualforce bundle for Sublime Text 
 
 License
-===================
+-------------------
 The MIT License (MIT)
 
 Copyright (c) 2013 Bruno Cardoso

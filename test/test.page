@@ -1,7 +1,8 @@
-<apex:page standardController="Account" extensions="AccountsController2" docType="{!AASDAS($Resource.ook, printContrller)}">
+<apex:page standardController="Account" extensions="AccountsController2" docType="{!AASDAS($Resource.ook)}">
     <apex:actionfunction class="test()" id="{!AASDAS()}" />
 
     <apex:actionFunction  id="lols({!JS(inasdl)})"/>
+
     <apex:pageBlock title="Debug">
         <apex:pageBlockSection title="ActionStatus" collapsible="{!AASDAS()}" >
             Status1: <apex:actionstatus id="selectionStatus" startText="(starting...)" stopText="{!$Component.userLongitude}"/>
