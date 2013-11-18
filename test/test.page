@@ -1,20 +1,61 @@
-<apex:page standardController="Account" extensions="AccountsController2" docType="{!AASDAS($Resource.ook)}">
-    <apex:actionfunction class="test()" id="{!AASDAS()}" />
+<apex:page controller="weather_controller">
+  <!-- VF page to render the weather records with Ajax that only rerenders 
+     the page on change of the temperature
+  -->
+  <apex:form id="theForm">
+    <apex:pageBlock id="pageBlock">
+      <apex:pageBlockTable value="{!listOfWeather}" var="weather">
+        <apex:column value="{!weather.weather.name}"/>
+        <apex:column headerValue="Temperature (C)">
+          <apex:actionRegion >
+            <apex:inputText value="{!weather.tempInCelcius}">
+              <apex:actionSupport event="onchange"
+                      reRender="pageBlock"/>
+            </apex:inputText>
+          </apex:actionRegion>
+        </apex:column>
+        <apex:column headerValue="Temperature (F)"
+              value="{!weather.weather.Temperature__c}"
+              id="tempInF"/>
+      </apex:pageBlockTable>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>
 
-    <apex:actionFunction  id="lols({!JS(inasdl)})"/>
-
-    <apex:pageBlock title="Debug">
-        <apex:pageBlockSection title="ActionStatus" collapsible="{!AASDAS()}" >
-            Status1: <apex:actionstatus id="selectionStatus" startText="(starting...)" stopText="{!$Component.userLongitude}"/>
-            Status2: <apex:actionstatus id="removeStatus" startText="(starting...)" stopText="(done!)"/>
+<apex:page standardController="Account">
+    <apex:form >
+        <apex:pageBlock id="in" title="Edit Account for {!$User.FirstName}">
+            <apex:pageMessages />
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!quickSave}" rerender="out, in" status="status"/>     
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection >
+                <apex:inputField value="{!account.name}"/>
+                <apex:inputField value="{!account.industry}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    <apex:pageBlock id="out" title="Read View">               
+        <apex:actionStatus startText="updating..." id="status"/>
+        <apex:pageBlockSection>
+            <apex:outputField value="{!account.name}"/>
+            <apex:outputField value="{!account.industry}"/>
         </apex:pageBlockSection>
     </apex:pageBlock>
-    <div>
-        <div>{!JSINHTML(olhotanews)}
-            <div>
-                <a href="" title=""></a>    
-                <img src="" alt=""> 
-            </div>  
-        </div>  
-    </div>  
 </apex:page>
+
+
+<apex:page standardController="Account">
+    <apex:form>
+        <apex:pageBlock title="Edit Account for {!$User.FirstName}">
+            <apex:pageMessages/>
+            <apex:pageBlockButtons>
+                <apex:commandButton value="Save" action="{!save}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection>
+                <apex:inputField value="{!account.name}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
+
