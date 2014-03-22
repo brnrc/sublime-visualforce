@@ -8,7 +8,7 @@ Visualforce bundle for Sublime Text 2/3
     - Embedded custom controller attributes
 - Code completion for apex tags like `<apex:actionfunction />`
 
-![ScreenShot](https://github.com/brucardoso2/sublime-visualforce/raw/master//screenshots/autocomplete.png)
+![ScreenShot](https://raw.githubusercontent.com/brucardoso2/sublime-visualforce/master/screenshots/autocomplete.png)
 
 ##Installation
 ######With [package control][pc] 
